@@ -13,6 +13,8 @@ from PreResNet import *
 from sklearn.mixture import GaussianMixture
 import dataloader_cifar as dataloader
 
+
+
 parser = argparse.ArgumentParser(description='PyTorch CIFAR Training')
 parser.add_argument('--batch_size', default=64, type=int, help='train batchsize') 
 parser.add_argument('--lr', '--learning_rate', default=0.02, type=float, help='initial learning rate')
@@ -21,7 +23,7 @@ parser.add_argument('--alpha', default=4, type=float, help='parameter for Beta')
 parser.add_argument('--lambda_u', default=25, type=float, help='weight for unsupervised loss')
 parser.add_argument('--p_threshold', default=0.5, type=float, help='clean probability threshold')
 parser.add_argument('--T', default=0.5, type=float, help='sharpening temperature')
-parser.add_argument('--num_epochs', default=300, type=int)
+parser.add_argument('--num_epochs', default=30, type=int)
 parser.add_argument('--r', default=0.5, type=float, help='noise ratio')
 parser.add_argument('--id', default='')
 parser.add_argument('--seed', default=123)
@@ -212,8 +214,8 @@ def create_model():
     model = model.cuda()
     return model
 
-stats_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_stats.txt','w') 
-test_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')     
+stats_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_stats.txt','w')
+test_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')
 
 if args.dataset=='cifar10':
     warm_up = 10
@@ -238,7 +240,7 @@ if args.noise_mode=='asym':
     conf_penalty = NegEntropy()
 
 all_loss = [[],[]] # save the history of losses from two networks
-
+print('total num of epochs: ', args.num_epochs)
 for epoch in range(args.num_epochs+1):   
     lr=args.lr
     if epoch >= 150:
