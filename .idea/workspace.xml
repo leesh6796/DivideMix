@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e44440b5-60d1-480f-ac81-bd0cacde984e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1cAHBk3HiITFqoL5tOHF0jMi5sw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.debugger.python" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/M_Train_clothing1M.py" />
+  </component>
+  <component name="PyDebuggerOptionsProvider">
+    <option name="mySupportGeventDebugging" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/downloaders" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.M_Train_clothing1M">
+    <configuration name="M_Train_clothing1M" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="CUDA_VISIBLE_DEVICES" value="4" />
+      </envs>
+      <option name="SDK_HOME" value="sftp://adiorz@143.248.53.220:22/home/adiorz/anaconda3/envs/divmix/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/M_Train_clothing1M.py" />
+      <option name="PARAMETERS" value="--data_path /home/adiorz/git/DivideMix/dataset/clothing1M" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Train_clothing1M" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DivideMix" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="CUDA_VISIBLE_DEVICES" value="4" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Train_clothing1M.py" />
+      <option name="PARAMETERS" value="--data_path /home/adiorz/git/DivideMix/dataset/clothing1M" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="DivideMix" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="sftp://adiorz@143.248.53.220:22/home/adiorz/anaconda3/envs/divmix/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="--data_path /home/adiorz/git/DivideMix/dataset/webvision" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dataloader_webvision" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DivideMix" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="sftp://adiorz@143.248.53.220:22/home/adiorz/anaconda3/envs/divmix/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataloader_webvision.py" />
+      <option name="PARAMETERS" value="--data_path /home/adiorz/git/DivideMix/dataset/webvision" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.dataloader_webvision" />
+      <item itemvalue="Python.Train_clothing1M" />
+      <item itemvalue="Python.M_Train_clothing1M" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.M_Train_clothing1M" />
+        <item itemvalue="Python.Train_clothing1M" />
+        <item itemvalue="Python.dataloader_webvision" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e44440b5-60d1-480f-ac81-bd0cacde984e" name="Default Changelist" comment="" />
+      <created>1589964343137</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589964343137</updated>
+      <workItem from="1589964346527" duration="1432000" />
+      <workItem from="1590406810970" duration="26604000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-1360" y="256" key="#Deployment" timestamp="1590479237670">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state x="-1360" y="242" key="#Deployment/-1920.23.1920.1108/0.23.1920.1177@-1920.23.1920.1108" timestamp="1589964469811" />
+    <state x="-1360" y="256" key="#Deployment/-1920.23.1920.1177/0.23.1920.1112@-1920.23.1920.1177" timestamp="1590478193724" />
+    <state x="-1360" y="256" key="#Deployment/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590470411845" />
+    <state x="-1360" y="256" key="#Deployment/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590479237670" />
+    <state x="-1718" y="252" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590569350196">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state x="-1718" y="252" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590569350196" />
+    <state x="-1496" y="239" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555499242" />
+    <state x="-1820" y="123" width="1720" height="909" key="DiffContextDialog" timestamp="1590569469877">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state x="-1820" y="123" width="1720" height="909" key="DiffContextDialog/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590569469877" />
+    <state x="-1827" y="177" width="1720" height="909" key="DirDiffDialog" timestamp="1590478611856">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state x="-1827" y="177" width="1720" height="909" key="DirDiffDialog/-1920.23.1920.1177/0.23.1920.1112@-1920.23.1920.1177" timestamp="1590478611856" />
+    <state width="1878" height="307" key="GridCell.Tab.0.bottom" timestamp="1590569454784">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="307" key="GridCell.Tab.0.bottom/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590569454784" />
+    <state width="1878" height="307" key="GridCell.Tab.0.bottom/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555737329" />
+    <state width="1878" height="378" key="GridCell.Tab.0.bottom/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495527846" />
+    <state width="1878" height="307" key="GridCell.Tab.0.bottom/-1920.23.1920.1177/0.23.1920.1117@-1920.23.1920.1177" timestamp="1590480980580" />
+    <state width="1878" height="307" key="GridCell.Tab.0.center" timestamp="1590569454783">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="307" key="GridCell.Tab.0.center/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590569454783" />
+    <state width="1878" height="307" key="GridCell.Tab.0.center/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555737329" />
+    <state width="1878" height="378" key="GridCell.Tab.0.center/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495527846" />
+    <state width="1878" height="307" key="GridCell.Tab.0.center/-1920.23.1920.1177/0.23.1920.1117@-1920.23.1920.1177" timestamp="1590480980580" />
+    <state width="1878" height="307" key="GridCell.Tab.0.left" timestamp="1590569454783">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="307" key="GridCell.Tab.0.left/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590569454783" />
+    <state width="1878" height="307" key="GridCell.Tab.0.left/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555737329" />
+    <state width="1878" height="378" key="GridCell.Tab.0.left/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495527845" />
+    <state width="1878" height="307" key="GridCell.Tab.0.left/-1920.23.1920.1177/0.23.1920.1117@-1920.23.1920.1177" timestamp="1590480980580" />
+    <state width="1878" height="307" key="GridCell.Tab.0.right" timestamp="1590569454784">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="307" key="GridCell.Tab.0.right/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590569454784" />
+    <state width="1878" height="307" key="GridCell.Tab.0.right/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555737329" />
+    <state width="1878" height="378" key="GridCell.Tab.0.right/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495527846" />
+    <state width="1878" height="307" key="GridCell.Tab.0.right/-1920.23.1920.1177/0.23.1920.1117@-1920.23.1920.1177" timestamp="1590480980580" />
+    <state width="1878" height="378" key="GridCell.Tab.1.bottom" timestamp="1590555446347">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="378" key="GridCell.Tab.1.bottom/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555446347" />
+    <state width="1878" height="378" key="GridCell.Tab.1.bottom/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495535780" />
+    <state width="1878" height="378" key="GridCell.Tab.1.center" timestamp="1590555446346">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="378" key="GridCell.Tab.1.center/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555446346" />
+    <state width="1878" height="378" key="GridCell.Tab.1.center/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495535779" />
+    <state width="1878" height="378" key="GridCell.Tab.1.left" timestamp="1590555446346">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="378" key="GridCell.Tab.1.left/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555446346" />
+    <state width="1878" height="378" key="GridCell.Tab.1.left/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495535779" />
+    <state width="1878" height="378" key="GridCell.Tab.1.right" timestamp="1590555446347">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="1878" height="378" key="GridCell.Tab.1.right/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590555446347" />
+    <state width="1878" height="378" key="GridCell.Tab.1.right/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590495535780" />
+    <state x="-1451" y="228" key="SettingsEditor" timestamp="1590489551767">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state x="-1451" y="216" key="SettingsEditor/-1920.23.1920.1108/0.23.1920.1177@-1920.23.1920.1108" timestamp="1589964436010" />
+    <state x="-1451" y="228" key="SettingsEditor/-1920.23.1920.1177/0.23.1920.1112@-1920.23.1920.1177" timestamp="1590478219553" />
+    <state x="-1451" y="228" key="SettingsEditor/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590479342735" />
+    <state x="-1451" y="228" key="SettingsEditor/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590489551767" />
+    <state width="960" height="554" key="XDebugger.FullValuePopup" timestamp="1590492792700">
+      <screen x="-1920" y="23" width="1920" height="1177" />
+    </state>
+    <state width="960" height="554" key="XDebugger.FullValuePopup/-1920.23.1920.1177/0.23.1920.1116@-1920.23.1920.1177" timestamp="1590492792700" />
+    <state x="-1198" y="305" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1589964434799">
+      <screen x="-1920" y="23" width="1920" height="1108" />
+    </state>
+    <state x="-1198" y="305" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/-1920.23.1920.1108/0.23.1920.1177@-1920.23.1920.1108" timestamp="1589964434799" />
+    <state x="0" y="23" width="1404" height="754" key="dock-window-1" timestamp="1590462112415">
+      <screen x="0" y="23" width="1920" height="1115" />
+    </state>
+    <state x="0" y="23" width="1404" height="754" key="dock-window-1/-1920.23.1920.1177/0.23.1920.1115@-1920.23.1920.1177" timestamp="1590462112415" />
+    <state x="0" y="23" width="1404" height="754" key="dock-window-2" timestamp="1590568795671">
+      <screen x="0" y="23" width="1920" height="1114" />
+    </state>
+    <state x="0" y="23" width="1404" height="754" key="dock-window-2/-1920.23.1920.1177/0.23.1920.1114@-1920.23.1920.1177" timestamp="1590568795671" />
+    <state x="-1053" y="314" key="ftp.server.browser" timestamp="1589964468335">
+      <screen x="-1920" y="23" width="1920" height="1108" />
+    </state>
+    <state x="-1053" y="314" key="ftp.server.browser/-1920.23.1920.1108/0.23.1920.1177@-1920.23.1920.1108" timestamp="1589964468335" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="target" language="Python" />
+        <watch expression="img" language="Python" />
+        <watch expression="train_imgs" language="Python" />
+        <watch expression="len(lines)" language="Python" />
+        <watch expression="eval_dataset" language="Python" />
+        <watch expression="eval_loader" language="Python" />
+        <watch expression="image" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DivideMix$Train_clothing1M.coverage" NAME="Train_clothing1M Coverage Results" MODIFIED="1590556659977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DivideMix$dataloader_webvision.coverage" NAME="dataloader_webvision Coverage Results" MODIFIED="1590479192072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DivideMix$M_Train_webvision.coverage" NAME="M_Train_webvision Coverage Results" MODIFIED="1590499861620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DivideMix$M_Train_clothing1M.coverage" NAME="M_Train_clothing1M Coverage Results" MODIFIED="1590569454778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
