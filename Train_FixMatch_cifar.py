@@ -76,15 +76,15 @@ def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader,unl
             
             pu = (torch.softmax(outputs_u11, dim=1) + torch.softmax(outputs_u12, dim=1) + torch.softmax(outputs_u21, dim=1) + torch.softmax(outputs_u22, dim=1)) / 4       
             # COMMENTED LINES #
-            # ptu = pu**(1/args.T) # temparature sharpening
+            ptu = pu**(1/args.T) # temparature sharpening
             
             # targets_u = ptu / ptu.sum(dim=1, keepdim=True) # normalize
             # targets_u = targets_u.detach()  
             # COMMENTED LINES #
 
             # pseudo_label = torch.softmax(pu.detach_(), dim=-1)
-            max_probs, targets_u = torch.max(pu, dim=-1)  
-            threshold = 0.95
+            max_probs, _ = torch.max(pu, dim=-1)  
+            threshold = 0.9
             mask = max_probs.ge(threshold).float()   
             
             # label refinement of labeled samples
@@ -97,9 +97,9 @@ def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader,unl
                        
             targets_x = ptx / ptx.sum(dim=1, keepdim=True) # normalize  
             # COMMENTED LINES #         
-            # targets_x = targets_x.detach()      
+            targets_x = targets_x.detach()      
             # COMMENTED LINES # 
-            _, targets_x = torch.max(targets_x, dim=-1)  
+            # _, targets_x = torch.max(targets_x, dim=-1)  
         
         # COMMENTED LINES #
         # mixmatch
@@ -122,20 +122,21 @@ def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader,unl
         # logits_u = logits[batch_size*2:]        
         # COMMENTED LINES #
         all_inputs = torch.cat([inputs_x, inputs_x2, inputs_us, inputs_us2], dim=0)
+        all_targets = torch.cat([targets_x, targets_x, targets_u, targets_u], dim=0)
         logits = net(all_inputs)
         logits_x = logits[:batch_size*2]
         logits_us = logits[batch_size*2:]
 
-        all_targets = torch.cat([targets_x, targets_x, targets_u, targets_u], dim=0)
         mask = torch.cat([mask, mask], dim=0)
-
+        Lx, Lu, lamb = criterion(logits_x, all_targets[:batch_size*2], logits_us, all_targets[batch_size*2:], epoch+batch_idx/num_iter, warm_up)
+        Lu = (Lu * mask).mean()
         # COMMENTED LINES #
         # Lx, Lu, lamb = criterion(logits_x, mixed_target[:batch_size*2], logits_u, mixed_target[batch_size*2:], epoch+batch_idx/num_iter, warm_up)
         # COMMENTED LINES #
 
-        Lx = F.cross_entropy(logits_x, all_targets[:batch_size*2], reduction='mean')
-        Lu = (F.cross_entropy(logits_us, all_targets[batch_size*2:], reduction='none') * mask).mean()
-        lamb = 1
+        # Lx = F.cross_entropy(logits_x, all_targets[:batch_size*2], reduction='mean')
+        # Lu = (F.cross_entropy(logits_us, all_targets[batch_size*2:], reduction='none') * mask).mean()
+        # lamb = linear_rampup(epoch+batch_idx/num_iter, warm_up)
 
         # regularization
         prior = torch.ones(args.num_class)/args.num_class
@@ -245,8 +246,8 @@ def create_model():
     model = model.cuda()
     return model
 
-stats_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_stats.txt','w')
-test_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')
+stats_log=open('./checkpoint/%s_%.1f_%s_second'%(args.dataset,args.r,args.noise_mode)+'_stats.txt','w')
+test_log=open('./checkpoint/%s_%.1f_%s_second'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')
 
 if args.dataset=='cifar10':
     warm_up = 10
