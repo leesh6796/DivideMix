@@ -15,7 +15,7 @@ import dataloader_clothing1M as dataloader
 from sklearn.mixture import GaussianMixture
 from torch.utils.tensorboard import SummaryWriter
 
-writer = SummaryWriter('cloth_logs/test')
+writer = SummaryWriter('cloth_logs/clothing1m-default-june6')
 
 
 parser = argparse.ArgumentParser(description='PyTorch Clothing1M Training')
@@ -133,7 +133,7 @@ def train(epoch, net, net2, optimizer, labeled_trainloader, unlabeled_trainloade
 
     writer.add_scalar('Train_'+netname+'/labeled_loss', Lx.item(), epoch)
     
-def warmup(net,optimizer,dataloader):
+def warmup(net,optimizer,dataloader, netname): # changegg
     net.train()
     for batch_idx, (inputs, labels, path) in enumerate(dataloader):      
         inputs, labels = inputs.cuda(), labels.cuda() 
@@ -193,7 +193,7 @@ def test(net1,net2,test_loader):
     acc = 100.*correct/total
     print("\n| Test Acc: %.2f%%\n" %(acc))
 
-    writer.add_scaler('Test/Accuracy', acc, epoch)
+    writer.add_scalar('Test/Accuracy', acc, epoch)
     return acc    
     
 def eval_train(epoch,model):
@@ -242,6 +242,17 @@ loader = dataloader.clothing_dataloader(root=args.data_path,batch_size=args.batc
 print('| Building net')
 net1 = create_model()
 net2 = create_model()
+# Visualization
+images, labels, idx = next(iter(loader.run('eval_train')))
+images = images.cuda()
+grid = torchvision.utils.make_grid(images)
+writer.add_graph(net1, images)
+writer.add_graph(net2, images)
+
+
+
+
+
 cudnn.benchmark = True
 
 optimizer1 = optim.SGD(net1.parameters(), lr=args.lr, momentum=0.9, weight_decay=1e-3)
@@ -264,10 +275,10 @@ for epoch in range(args.num_epochs+1):
     if epoch<1:     # warm up  
         train_loader = loader.run('warmup')
         print('Warmup Net1')
-        warmup(net1,optimizer1,train_loader)     
+        warmup(net1,optimizer1,train_loader,'net1')
         train_loader = loader.run('warmup')
         print('\nWarmup Net2')
-        warmup(net2,optimizer2,train_loader)                  
+        warmup(net2,optimizer2,train_loader, 'net2')
     else:       
         pred1 = (prob1 > args.p_threshold)  # divide dataset  
         pred2 = (prob2 > args.p_threshold)      

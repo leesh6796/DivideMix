@@ -17,7 +17,8 @@ from torchvision import datasets, transforms
 import dataloader_cifar as dataloader
 
 # Tensorboard
-writer = SummaryWriter('logs/test')
+# writer = SummaryWriter('logs/test')
+writer = SummaryWriter('cloth_logs/cifar10-uniform-random')
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR Training')
 parser.add_argument('--batch_size', default=64, type=int, help='train batchsize') 
@@ -27,13 +28,13 @@ parser.add_argument('--alpha', default=4, type=float, help='parameter for Beta')
 parser.add_argument('--lambda_u', default=25, type=float, help='weight for unsupervised loss')
 parser.add_argument('--p_threshold', default=0.5, type=float, help='clean probability threshold')
 parser.add_argument('--T', default=0.5, type=float, help='sharpening temperature')
-parser.add_argument('--num_epochs', default=30, type=int)
+parser.add_argument('--num_epochs', default=100, type=int)
 parser.add_argument('--r', default=0.5, type=float, help='noise ratio')
 parser.add_argument('--id', default='')
 parser.add_argument('--seed', default=123)
 parser.add_argument('--gpuid', default=0, type=int)
 parser.add_argument('--num_class', default=10, type=int)
-parser.add_argument('--data_path', default='./dataset/cifar-10-batches-py', type=str, help='path to dataset')
+parser.add_argument('--data_path', default='./cifar-10', type=str, help='path to dataset')
 parser.add_argument('--dataset', default='cifar10', type=str)
 args = parser.parse_args()
 
@@ -188,35 +189,14 @@ def test(epoch,net1,net2):
 
     writer.add_scalar('Test/Accuracy', acc, epoch)
 
-def temperature_scaling(f_xs, T):
-    S = np.exp(f_xs/T)
-    S = S/np.sum(S)
-    return S
-
 def eval_train(model,all_loss):    
-    temper = 1000
-    epsilon = 0.0014
-
     model.eval()
     # First fix the losses list with size of 50000 (just enough for storing losses)
     losses = torch.zeros(50000)    
     with torch.no_grad():
         for batch_idx, (inputs, targets, index) in enumerate(eval_loader): # eval_loader loads all of the cifar-10 data
-            
             inputs, targets = inputs.cuda(), targets.cuda() 
             outputs = model(inputs) # with DivideMix model, the outputs are inferred
-            
-            ######
-            new_inputs = []
-            inputs_np = inputs.data.cpu().numpy()
-            for i, output in enumerate(outputs.data.cpu().numpy()):
-                max_S = np.max(temperature_scaling(output, temper))
-                grad = np.negative(np.gradient(inputs_np[i], np.log(max_S), axis=0))
-
-                new_inputs.append(inputs_np[i]-epsilon*np.sign(grad))
-
-            outputs = model(torch.from_numpy(np.array(new_inputs)).float().cuda())
-
             loss = CE(outputs, targets)  # and compare the inferred result with actual labels - calculate CE loss
             for b in range(inputs.size(0)):
                 losses[index[b]]=loss[b]         # and store these losses in correponding index
@@ -234,13 +214,13 @@ def eval_train(model,all_loss):
     ##### So by performing GMM with the cluster number of 2, they can seperate the noisy-labeled data
     ##### They infer the cluster which has lower mean value of CE losses as correct-labeled data, and others as noisy ones 
     # fit a two-component GMM to the loss
-    gmm = GaussianMixture(n_components=2,max_iter=10,tol=1e-2,reg_covar=5e-4)
-    gmm.fit(input_loss)
-    prob = gmm.predict_proba(input_loss) 
-    prob = prob[:,gmm.means_.argmin()]       
+    # gmm = GaussianMixture(n_components=2,max_iter=10,tol=1e-2,reg_covar=5e-4)
+    # gmm.fit(input_loss)
+    # prob = gmm.predict_proba(input_loss) 
+    # prob = prob[:,gmm.means_.argmin()]       
 
     ##### Let's check what happens if we seperate the noisy labeled data randomly by changing the probs
-    # prob = np.random.uniform(low=0, high=1, size=(len(input_loss),))
+    prob = np.random.uniform(low=0, high=1, size=(len(input_loss),))
     return prob,all_loss
 
 def linear_rampup(current, warm_up, rampup_length=16):
@@ -270,7 +250,7 @@ stats_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'
 test_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')
 
 if args.dataset=='cifar10':
-    warm_up = 10
+    warm_up = 2 #10
 elif args.dataset=='cifar100':
     warm_up = 30
 
