@@ -78,8 +78,8 @@ def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader,unl
             # COMMENTED LINES #
             ptu = pu**(1/args.T) # temparature sharpening
             
-            # targets_u = ptu / ptu.sum(dim=1, keepdim=True) # normalize
-            # targets_u = targets_u.detach()  
+            targets_u = ptu / ptu.sum(dim=1, keepdim=True) # normalize
+            targets_u = targets_u.detach()  
             # COMMENTED LINES #
 
             # pseudo_label = torch.softmax(pu.detach_(), dim=-1)
