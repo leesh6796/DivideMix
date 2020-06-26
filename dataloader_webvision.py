@@ -7,8 +7,13 @@ import torch
 import os
 
 class imagenet_dataset(Dataset):
-    def __init__(self, root_dir, transform, num_class):
-        self.root = root_dir+'imagenet/val/'
+    # def __init__(self, root_dir, transform, num_class):
+    def __init__(self, root_dir, transform, num_class=200):
+
+        # I will use tinyImagenet => 200 classes and each class contains 500 training images, 50 valid and 50 test images sd
+        # self.root = root_dir+'imagenet/val/'
+        self.root = root_dir+'tiny-imagenet-200/val/'
+
         self.transform = transform
         self.val_data = []
         for c in range(num_class):

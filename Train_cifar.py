@@ -12,6 +12,12 @@ import numpy as np
 from PreResNet import *
 from sklearn.mixture import GaussianMixture
 import dataloader_cifar as dataloader
+from torch.utils.tensorboard import SummaryWriter
+from torchvision import datasets, transforms
+import torchvision
+#tensorboard
+writer = SummaryWriter('cloth_logs/cifar-10_epoch100_test')
+
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR Training')
 parser.add_argument('--batch_size', default=64, type=int, help='train batchsize') 
@@ -21,7 +27,7 @@ parser.add_argument('--alpha', default=4, type=float, help='parameter for Beta')
 parser.add_argument('--lambda_u', default=25, type=float, help='weight for unsupervised loss')
 parser.add_argument('--p_threshold', default=0.5, type=float, help='clean probability threshold')
 parser.add_argument('--T', default=0.5, type=float, help='sharpening temperature')
-parser.add_argument('--num_epochs', default=300, type=int)
+parser.add_argument('--num_epochs', default=100, type=int)
 parser.add_argument('--r', default=0.5, type=float, help='noise ratio')
 parser.add_argument('--id', default='')
 parser.add_argument('--seed', default=123)
@@ -31,6 +37,10 @@ parser.add_argument('--data_path', default='./cifar-10', type=str, help='path to
 parser.add_argument('--dataset', default='cifar10', type=str)
 args = parser.parse_args()
 
+arg_dict = vars(args)
+for key in arg_dict.keys():
+    writer.add_text(key, str(arg_dict[key]))
+
 torch.cuda.set_device(args.gpuid)
 random.seed(args.seed)
 torch.manual_seed(args.seed)
@@ -38,7 +48,7 @@ torch.cuda.manual_seed_all(args.seed)
 
 
 # Training
-def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader):
+def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader, netname):
     net.train()
     net2.eval() #fix one network and train the other
     
@@ -121,7 +131,12 @@ def train(epoch,net,net2,optimizer,labeled_trainloader,unlabeled_trainloader):
                 %(args.dataset, args.r, args.noise_mode, epoch, args.num_epochs, batch_idx+1, num_iter, Lx.item(), Lu.item()))
         sys.stdout.flush()
 
-def warmup(epoch,net,optimizer,dataloader):
+        # Visualization
+        writer.add_scalar('Train_' + netname + '/labeled_loss', Lx.item(), epoch)
+        writer.add_scalar('Train_'+netname+'/unlabeled_loss', Lu.item(), epoch)
+        writer.add_scalar('Train_'+netname+'/combined_loss', loss.item(), epoch)
+
+def warmup(epoch,net,optimizer,dataloader, netname):
     net.train()
     num_iter = (len(dataloader.dataset)//dataloader.batch_size)+1
     for batch_idx, (inputs, labels, path) in enumerate(dataloader):      
@@ -142,6 +157,9 @@ def warmup(epoch,net,optimizer,dataloader):
                 %(args.dataset, args.r, args.noise_mode, epoch, args.num_epochs, batch_idx+1, num_iter, loss.item()))
         sys.stdout.flush()
 
+        # Visualization
+        writer.add_scalar('Warmup_'+netname+'/loss', loss.item(), epoch)
+
 def test(epoch,net1,net2):
     net1.eval()
     net2.eval()
@@ -160,7 +178,10 @@ def test(epoch,net1,net2):
     acc = 100.*correct/total
     print("\n| Test Epoch #%d\t Accuracy: %.2f%%\n" %(epoch,acc))  
     test_log.write('Epoch:%d   Accuracy:%.2f\n'%(epoch,acc))
-    test_log.flush()  
+    test_log.flush()
+
+    #Visualization
+    writer.add_scalar('Test/Accuracy', acc, epoch)
 
 def eval_train(model,all_loss):    
     model.eval()
@@ -212,8 +233,8 @@ def create_model():
     model = model.cuda()
     return model
 
-stats_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_stats.txt','w') 
-test_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')     
+stats_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_stats.txt','w')
+test_log=open('./checkpoint/%s_%.1f_%s'%(args.dataset,args.r,args.noise_mode)+'_acc.txt','w')
 
 if args.dataset=='cifar10':
     warm_up = 10
@@ -226,6 +247,18 @@ loader = dataloader.cifar_dataloader(args.dataset,r=args.r,noise_mode=args.noise
 print('| Building net')
 net1 = create_model()
 net2 = create_model()
+
+# Visualization
+images, labels, idx = next(iter(loader.run('eval_train')))
+images = images.cuda()
+grid = torchvision.utils.make_grid(images)
+
+writer.add_image('images', grid, 0)
+writer.add_graph(net1, images)
+writer.add_graph(net2, images)
+
+
+
 cudnn.benchmark = True
 
 criterion = SemiLoss()
@@ -238,7 +271,7 @@ if args.noise_mode=='asym':
     conf_penalty = NegEntropy()
 
 all_loss = [[],[]] # save the history of losses from two networks
-
+print('total num of epochs: ', args.num_epochs)
 for epoch in range(args.num_epochs+1):   
     lr=args.lr
     if epoch >= 150:
@@ -253,9 +286,9 @@ for epoch in range(args.num_epochs+1):
     if epoch<warm_up:       
         warmup_trainloader = loader.run('warmup')
         print('Warmup Net1')
-        warmup(epoch,net1,optimizer1,warmup_trainloader)    
+        warmup(epoch,net1,optimizer1,warmup_trainloader, 'net1')
         print('\nWarmup Net2')
-        warmup(epoch,net2,optimizer2,warmup_trainloader) 
+        warmup(epoch,net2,optimizer2,warmup_trainloader, 'net2')
    
     else:         
         prob1,all_loss[0]=eval_train(net1,all_loss[0])   
@@ -266,12 +299,14 @@ for epoch in range(args.num_epochs+1):
         
         print('Train Net1')
         labeled_trainloader, unlabeled_trainloader = loader.run('train',pred2,prob2) # co-divide
-        train(epoch,net1,net2,optimizer1,labeled_trainloader, unlabeled_trainloader) # train net1  
+        train(epoch,net1,net2,optimizer1,labeled_trainloader, unlabeled_trainloader, 'net1') # train net1
         
         print('\nTrain Net2')
         labeled_trainloader, unlabeled_trainloader = loader.run('train',pred1,prob1) # co-divide
-        train(epoch,net2,net1,optimizer2,labeled_trainloader, unlabeled_trainloader) # train net2         
+        train(epoch,net2,net1,optimizer2,labeled_trainloader, unlabeled_trainloader, 'net2') # train net2
 
-    test(epoch,net1,net2)  
+    test(epoch,net1,net2)
+
+writer.close()
 
 
